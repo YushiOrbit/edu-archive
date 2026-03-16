@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>강의자료실</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Malgun Gothic', sans-serif; background: #f5f7fa; }
+
+    #login-section {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; height: 100vh;
+    }
+    #login-section h2 { font-size: 24px; margin-bottom: 20px; color: #003087; }
+    #login-section input {
+      padding: 12px; width: 250px; border: 1px solid #ccc;
+      border-radius: 8px; font-size: 15px; margin-bottom: 10px;
+    }
+    #login-section button {
+      padding: 12px; width: 250px; background: #003087;
+      color: white; border: none; border-radius: 8px;
+      font-size: 15px; cursor: pointer;
+    }
+    #error { color: red; margin-top: 8px; display: none; }
+
+    #main-section { display: none; max-width: 800px; margin: 40px auto; padding: 20px; }
+    h1 { color: #003087; margin-bottom: 24px; }
+
+    /* 업로드 영역 */
+    .upload-box {
+      background: white; border: 2px dashed #0066CC;
+      border-radius: 12px; padding: 30px; text-align: center; margin-bottom: 30px;
+    }
+    .upload-box input[type="file"] { display: none; }
+    .upload-box label {
+      display: inline-block; padding: 10px 24px;
+      background: #e8f0fb; color: #003087;
+      border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 12px;
+    }
+    .upload-box button {
+      display: block; margin: 12px auto 0;
+      padding: 10px 30px; background: #003087;
+      color: white; border: none; border-radius: 8px;
+      font-size: 14px; cursor: pointer;
+    }
+    #selected-file { margin-top: 8px; font-size: 13px; color: #555; }
+    #upload-status { margin-top: 10px; font-size: 13px; }
+
+    /* 파일 목록 */
+    .file-item {
+      background: white; border: 1px solid #eee;
+      border-radius: 10px; padding: 14px 20px; margin-bottom: 10px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .file-name { font-size: 14px; color: #333; }
+    .file-name span { margin-right: 8px; }
+    .download-btn {
+      background: #0066CC; color: white; padding: 6px 16px;
+      border-radius: 6px; text-decoration: none; font-size: 13px;
+    }
+    #loading { text-align: center; color: #888; padding: 20px; }
+  </style>
+</head>
+<body>
+
+<!-- 로그인 화면 -->
+<div id="login-section">
+  <h2>🔐 강의자료실</h2>
+  <input type="password" id="pw" placeholder="비밀번호 입력" />
+  <button onclick="checkPassword()">입장하기</button>
+  <p id="error">비밀번호가 틀렸습니다</p>
+</div>
+
+<!-- 메인 화면 -->
+<div id="main-section">
+  <h1>📚 강의자료실</h1>
+
+  <!-- 업로드 박스 -->
+  <div class="upload-box">
+    <label for="file-input">📁 파일 선택 (PDF / PPTX)</label>
+    <input type="file" id="file-input" accept=".pdf,.pptx,.ppt" onchange="showFileName()" />
+    <p id="selected-file">선택된 파일 없음</p>
+    <button onclick="uploadFile()">⬆️ 업로드</button>
+    <p id="upload-status"></p>
+  </div>
+
+  <!-- 파일 목록 -->
+  <div id="file-list">
+    <p id="loading">파일 목록 불러오는 중...</p>
+  </div>
+</div>
+
+<script>
+  // ⚙️ 여기만 본인 정보로 수정해!
+  const PASSWORD = "0921";               // 원하는 비밀번호
+  const GITHUB_TOKEN = "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"; // STEP 1에서 발급받은 토큰
+  const GITHUB_USER = "parkalldo@gmail.com";
+  const REPO_NAME = "edu-archive";  // 저장소 이름
+
+  // 비밀번호 확인
+  function checkPassword() {
+    if (document.getElementById("pw").value === PASSWORD) {
+      document.getElementById("login-section").style.display = "none";
+      document.getElementById("main-section").style.display = "block";
+      loadFiles();
+    } else {
+      document.getElementById("error").style.display = "block";
+    }
+  }
+
+  document.getElementById("pw").addEventListener("keypress", e => {
+    if (e.key === "Enter") checkPassword();
+  });
+
+  // 선택한 파일 이름 표시
+  function showFileName() {
+    const file = document.getElementById("file-input").files[0];
+    document.getElementById("selected-file").textContent = file ? file.name : "선택된 파일 없음";
+  }
+
+  // 파일 업로드
+  async function uploadFile() {
+    const file = document.getElementById("file-input").files[0];
+    const status = document.getElementById("upload-status");
+    if (!file) { status.textContent = "⚠️ 파일을 먼저 선택해주세요."; return; }
+
+    status.textContent = "업로드 중...";
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+      const base64 = e.target.result.split(",")[1];
+      const url = `https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/materials/${file.name}`;
+      const res = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Authorization": `token ${GITHUB_TOKEN}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: `Upload ${file.name}`, content: base64 })
+      });
+
+      if (res.ok) {
+        status.style.color = "green";
+        status.textContent = "✅ 업로드 완료!";
+        loadFiles();
+      } else {
+        status.style.color = "red";
+        status.textContent = "❌ 업로드 실패. 토큰과 저장소 이름을 확인해줘.";
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // 파일 목록 불러오기
+  async function loadFiles() {
+    const url = `https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/materials`;
+    const res = await fetch(url, {
+      headers: { "Authorization": `token ${GITHUB_TOKEN}` }
+    });
+    const list = document.getElementById("file-list");
+
+    if (!res.ok) {
+      list.innerHTML = "<p style='color:#888;'>아직 업로드된 파일이 없어요.</p>";
+      return;
+    }
+
+    const files = await res.json();
+    list.innerHTML = "";
+    files.forEach(file => {
+      const icon = file.name.endsWith(".pdf") ? "📄" : "📊";
+      list.innerHTML += `
+        <div class="file-item">
+          <span class="file-name">${icon} ${file.name}</span>
+          <a class="download-btn" href="${file.download_url}" download>다운로드</a>
+        </div>`;
+    });
+  }
+</script>
+</body>
+</html>
