@@ -339,10 +339,21 @@
             <div class="file-icon ${iconClass}">${icon}</div>
             <span class="file-name">${file.name}</span>
           </div>
-          <a class="download-btn" href="${file.download_url}" download>↓ Download</a>
+          <a class="download-btn" href="#" onclick="downloadFile('${file.name}')">↓ Download</a>
         </div>`;
     });
   }
+  async function downloadFile(fileName) {
+  const url = `https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/materials/${fileName}`;
+  const res = await fetch(url, {
+    headers: { "Authorization": `token ${TOKEN}` }
+  });
+  const data = await res.json();
+  const link = document.createElement("a");
+  link.href = "data:application/octet-stream;base64," + data.content.replace(/\n/g, "");
+  link.download = fileName;
+  link.click();
+}
 </script>
 </body>
 </html>
