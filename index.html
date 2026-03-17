@@ -386,7 +386,7 @@
   });
   if (res.ok) {
     alert("✅ 삭제 완료!");
-    loadFiles();
+    setTimeout(() => loadFiles(), 1000);
   } else {
     alert("❌ 삭제 실패!");
   }
