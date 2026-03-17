@@ -5,7 +5,6 @@
   <title>강의자료실</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: 'Malgun Gothic', sans-serif;
       background: #ffffff;
@@ -15,8 +14,6 @@
       position: relative;
       overflow-x: hidden;
     }
-
-    /* SVG 배경 장식 */
     .bg-deco {
       position: fixed;
       top: 0; left: 0;
@@ -24,8 +21,6 @@
       pointer-events: none;
       z-index: 0;
     }
-
-    /* 떠다니는 장식 */
     .float-deco {
       position: fixed;
       pointer-events: none;
@@ -33,40 +28,32 @@
       animation: floatUp 7s ease-in-out infinite;
       opacity: 0.55;
     }
-    .float-deco:nth-child(1)  { left: 4%;   top: 10%; animation-delay: 0s;   }
-    .float-deco:nth-child(2)  { left: 90%;  top: 8%;  animation-delay: 1.2s; }
-    .float-deco:nth-child(3)  { left: 8%;   top: 42%; animation-delay: 2.4s; }
-    .float-deco:nth-child(4)  { left: 88%;  top: 38%; animation-delay: 0.8s; }
-    .float-deco:nth-child(5)  { left: 3%;   top: 72%; animation-delay: 3s;   }
-    .float-deco:nth-child(6)  { left: 92%;  top: 68%; animation-delay: 1.8s; }
-    .float-deco:nth-child(7)  { left: 48%;  top: 5%;  animation-delay: 4s;   opacity: 0.25; }
-    .float-deco:nth-child(8)  { left: 55%;  top: 88%; animation-delay: 2s;   opacity: 0.25; }
-
+    .float-deco:nth-child(1)  { left: 4%;  top: 10%; animation-delay: 0s;   }
+    .float-deco:nth-child(2)  { left: 90%; top: 8%;  animation-delay: 1.2s; }
+    .float-deco:nth-child(3)  { left: 8%;  top: 42%; animation-delay: 2.4s; }
+    .float-deco:nth-child(4)  { left: 88%; top: 38%; animation-delay: 0.8s; }
+    .float-deco:nth-child(5)  { left: 3%;  top: 72%; animation-delay: 3s;   }
+    .float-deco:nth-child(6)  { left: 92%; top: 68%; animation-delay: 1.8s; }
+    .float-deco:nth-child(7)  { left: 48%; top: 5%;  animation-delay: 4s;   opacity: 0.25; }
+    .float-deco:nth-child(8)  { left: 55%; top: 88%; animation-delay: 2s;   opacity: 0.25; }
     @keyframes floatUp {
       0%, 100% { transform: translateY(0px) rotate(-5deg); }
       50%       { transform: translateY(-14px) rotate(5deg); }
     }
-
-    /* 위츄 */
     .wishu-deco {
       position: fixed;
-      bottom: 72px;
-      right: 20px;
-      width: 88px;
-      opacity: 0.9;
+      bottom: 72px; right: 20px;
+      width: 88px; opacity: 0.9;
       z-index: 10;
       animation: floatUp 5s ease-in-out infinite;
       pointer-events: none;
     }
-
-    /* ── 로그인 ── */
     #login-section {
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       flex: 1; padding: 20px;
       position: relative; z-index: 1;
     }
-
     .login-box {
       background: rgba(255,255,255,0.92);
       backdrop-filter: blur(12px);
@@ -74,20 +61,13 @@
       padding: 52px 44px 44px;
       text-align: center;
       width: 100%; max-width: 400px;
-      box-shadow:
-        0 0 0 1.5px #c8f0d8,
-        0 12px 48px rgba(100,200,140,0.13),
-        0 2px 8px rgba(180,230,200,0.18);
-      position: relative;
-      overflow: hidden;
+      box-shadow: 0 0 0 1.5px #c8f0d8, 0 12px 48px rgba(100,200,140,0.13);
+      position: relative; overflow: hidden;
     }
-
-    /* 로그인 박스 상단 컬러 바 */
     .login-box::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 5px;
+      top: 0; left: 0; right: 0; height: 5px;
       background: linear-gradient(90deg, #a8e6cf, #ffd3e8, #b8e0ff, #a8e6cf);
       background-size: 200% 100%;
       animation: gradientShift 4s ease infinite;
@@ -97,195 +77,92 @@
       50%  { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-
-    .login-emoji {
-      font-size: 42px;
-      margin-bottom: 10px;
-      display: block;
-      animation: floatUp 3s ease-in-out infinite;
-    }
-    .login-box h2 {
-      font-size: 20px; color: #2d6a4f;
-      font-weight: 800; margin-bottom: 4px;
-      letter-spacing: 0.3px;
-    }
-    .login-box .login-sub {
-      font-size: 11.5px; color: #a8c8b8;
-      margin-bottom: 28px; letter-spacing: 0.5px;
-    }
-
-    .input-wrap {
-      position: relative; margin-bottom: 14px;
-    }
-    .input-wrap span {
-      position: absolute; left: 14px; top: 50%;
-      transform: translateY(-50%);
-      font-size: 14px; pointer-events: none;
-    }
+    .login-emoji { font-size: 42px; margin-bottom: 10px; display: block; animation: floatUp 3s ease-in-out infinite; }
+    .login-box h2 { font-size: 20px; color: #2d6a4f; font-weight: 800; margin-bottom: 4px; }
+    .login-box .login-sub { font-size: 11.5px; color: #a8c8b8; margin-bottom: 28px; letter-spacing: 0.5px; }
+    .input-wrap { position: relative; margin-bottom: 14px; }
+    .input-wrap span { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 14px; pointer-events: none; }
     .login-box input {
       width: 100%; padding: 13px 16px 13px 38px;
-      background: #f4fdf7;
-      border: 1.5px solid #c8f0d8;
-      border-radius: 14px;
-      color: #2d6a4f; font-size: 14px;
-      outline: none; text-align: left;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #f4fdf7; border: 1.5px solid #c8f0d8;
+      border-radius: 14px; color: #2d6a4f; font-size: 14px;
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
     }
-    .login-box input:focus {
-      border-color: #74c69d;
-      box-shadow: 0 0 0 3px rgba(116,198,157,0.15);
-    }
+    .login-box input:focus { border-color: #74c69d; box-shadow: 0 0 0 3px rgba(116,198,157,0.15); }
     .login-box input::placeholder { color: #c0ddd0; }
-
     .login-box button {
       width: 100%; padding: 14px;
       background: linear-gradient(135deg, #74c69d, #a8e6cf);
-      color: white; border: none;
-      border-radius: 14px; font-size: 14px;
-      font-weight: 800; cursor: pointer;
+      color: white; border: none; border-radius: 14px;
+      font-size: 14px; font-weight: 800; cursor: pointer;
       transition: transform 0.15s, opacity 0.2s;
-      letter-spacing: 0.8px;
       box-shadow: 0 4px 14px rgba(116,198,157,0.35);
     }
-    .login-box button:hover {
-      transform: translateY(-1px);
-      opacity: 0.92;
-    }
-    .login-box button:active { transform: translateY(0); }
-
-    #error {
-      color: #e07070; font-size: 12px;
-      margin-top: 10px; display: none;
-    }
-
-    /* 로그인 하단 장식 도트 */
-    .login-dots {
-      display: flex; justify-content: center;
-      gap: 6px; margin-top: 20px;
-    }
-    .login-dots span {
-      width: 6px; height: 6px; border-radius: 50%;
-    }
-
-    /* ── 메인 ── */
+    .login-box button:hover { transform: translateY(-1px); opacity: 0.92; }
+    #error { color: #e07070; font-size: 12px; margin-top: 10px; display: none; }
+    .login-dots { display: flex; justify-content: center; gap: 6px; margin-top: 20px; }
+    .login-dots span { width: 6px; height: 6px; border-radius: 50%; }
     #main-section {
       display: none; flex: 1;
       max-width: 860px; width: 100%;
       margin: 0 auto; padding: 40px 20px 20px;
       position: relative; z-index: 1;
     }
-
-    .page-header {
-      margin-bottom: 28px;
-      padding-bottom: 18px;
-      border-bottom: 1.5px solid #e8f8ee;
-    }
-    .page-header h1 {
-      font-size: 22px; color: #2d6a4f;
-      font-weight: 800; display: flex;
-      align-items: center; gap: 8px;
-    }
-    .page-header p {
-      font-size: 12px; color: #a8c8b8; margin-top: 4px;
-    }
-
-    /* 업로드 박스 */
+    .page-header { margin-bottom: 28px; padding-bottom: 18px; border-bottom: 1.5px solid #e8f8ee; }
+    .page-header h1 { font-size: 22px; color: #2d6a4f; font-weight: 800; }
+    .page-header p { font-size: 12px; color: #a8c8b8; margin-top: 4px; }
     .upload-box {
-      background: #fafffc;
-      border: 2px dashed #b7e4c7;
-      border-radius: 18px;
-      padding: 30px; text-align: center;
-      margin-bottom: 28px;
-      transition: border-color 0.2s, background 0.2s;
+      background: #fafffc; border: 2px dashed #b7e4c7;
+      border-radius: 18px; padding: 30px; text-align: center;
+      margin-bottom: 28px; transition: border-color 0.2s, background 0.2s;
     }
-    .upload-box:hover {
-      border-color: #74c69d;
-      background: #f0fbf5;
-    }
+    .upload-box:hover { border-color: #74c69d; background: #f0fbf5; }
     .upload-box input[type="file"] { display: none; }
     .upload-box label {
       display: inline-flex; align-items: center; gap: 6px;
-      padding: 10px 22px;
-      background: #e8f8ee;
-      color: #2d6a4f;
-      border-radius: 12px; cursor: pointer;
-      font-size: 13px; font-weight: 700;
-      margin-bottom: 12px;
-      transition: background 0.2s;
+      padding: 10px 22px; background: #e8f8ee; color: #2d6a4f;
+      border-radius: 12px; cursor: pointer; font-size: 13px;
+      font-weight: 700; margin-bottom: 12px; transition: background 0.2s;
     }
     .upload-box label:hover { background: #c8f0d8; }
-    #selected-file {
-      font-size: 12px; color: #a8c8b8; margin-bottom: 10px;
-    }
+    #selected-file { font-size: 12px; color: #a8c8b8; margin-bottom: 10px; }
     .upload-btn {
       display: inline-flex; align-items: center; gap: 6px;
       padding: 10px 28px;
       background: linear-gradient(135deg, #74c69d, #a8e6cf);
       color: white; border: none; border-radius: 12px;
-      font-size: 13px; font-weight: 800;
-      cursor: pointer; transition: transform 0.15s, opacity 0.2s;
+      font-size: 13px; font-weight: 800; cursor: pointer;
+      transition: transform 0.15s, opacity 0.2s;
       box-shadow: 0 4px 12px rgba(116,198,157,0.3);
     }
     .upload-btn:hover { transform: translateY(-1px); opacity: 0.9; }
     #upload-status { margin-top: 10px; font-size: 13px; }
-
-    /* 파일 목록 */
-    .section-title {
-      font-size: 11px; font-weight: 800;
-      color: #a8c8b8; letter-spacing: 2px;
-      text-transform: uppercase; margin-bottom: 12px;
-    }
+    .section-title { font-size: 11px; font-weight: 800; color: #a8c8b8; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
     .file-item {
-      background: #ffffff;
-      border: 1.5px solid #e8f8ee;
-      border-radius: 16px;
-      padding: 14px 20px; margin-bottom: 10px;
-      display: flex; justify-content: space-between;
-      align-items: center;
+      background: #ffffff; border: 1.5px solid #e8f8ee;
+      border-radius: 16px; padding: 14px 20px; margin-bottom: 10px;
+      display: flex; justify-content: space-between; align-items: center;
       transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
       box-shadow: 0 2px 8px rgba(116,198,157,0.06);
     }
-    .file-item:hover {
-      border-color: #a8e6cf;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(116,198,157,0.12);
-    }
+    .file-item:hover { border-color: #a8e6cf; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(116,198,157,0.12); }
     .file-info { display: flex; align-items: center; gap: 12px; }
-    .file-icon {
-      width: 38px; height: 38px;
-      border-radius: 10px;
-      display: flex; align-items: center;
-      justify-content: center; font-size: 18px;
-      flex-shrink: 0;
-    }
+    .file-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
     .file-icon.pdf { background: #ffe8ee; }
     .file-icon.ppt { background: #fff0e0; }
-    .file-name {
-      font-size: 13px; color: #2d6a4f; font-weight: 600;
-    }
+    .file-name { font-size: 13px; color: #2d6a4f; font-weight: 600; }
     .download-btn {
       background: #e8f8ee; color: #2d6a4f;
       padding: 7px 16px; border-radius: 10px;
-      text-decoration: none; font-size: 12px;
-      font-weight: 700; white-space: nowrap;
-      transition: background 0.2s, transform 0.15s;
+      text-decoration: none; font-size: 12px; font-weight: 700;
+      white-space: nowrap; transition: background 0.2s, transform 0.15s;
       display: flex; align-items: center; gap: 4px;
     }
-    .download-btn:hover {
-      background: #c8f0d8;
-      transform: translateY(-1px);
-    }
-    .empty-state {
-      text-align: center; color: #a8c8b8;
-      padding: 48px; font-size: 14px;
-    }
-
-    /* 푸터 */
+    .download-btn:hover { background: #c8f0d8; transform: translateY(-1px); }
+    .empty-state { text-align: center; color: #a8c8b8; padding: 48px; font-size: 14px; }
     footer {
-      text-align: center;
-      padding: 24px 20px 48px;
-      border-top: 1.5px solid #e8f8ee;
-      margin-top: 40px;
+      text-align: center; padding: 24px 20px 48px;
+      border-top: 1.5px solid #e8f8ee; margin-top: 40px;
       position: relative; z-index: 1;
     }
     footer p { font-size: 11.5px; color: #c0ddd0; line-height: 1.9; }
@@ -294,34 +171,23 @@
 </head>
 <body>
 
-<!-- SVG 배경 장식 -->
 <svg class="bg-deco" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg">
-  <!-- 핑크 하트들 -->
   <path d="M120,80 C120,65 105,55 95,65 C85,55 70,65 70,80 C70,95 95,115 95,115 C95,115 120,95 120,80Z" fill="#ffd3e8" opacity="0.5"/>
   <path d="M1340,200 C1340,188 1328,180 1320,188 C1312,180 1300,188 1300,200 C1300,212 1320,228 1320,228 C1320,228 1340,212 1340,200Z" fill="#ffb3d1" opacity="0.4"/>
   <path d="M200,700 C200,688 188,680 180,688 C172,680 160,688 160,700 C160,712 180,728 180,728 C180,728 200,712 200,700Z" fill="#ffd3e8" opacity="0.45"/>
   <path d="M1380,650 C1380,638 1368,630 1360,638 C1352,630 1340,638 1340,650 C1340,662 1360,678 1360,678 C1360,678 1380,662 1380,650Z" fill="#ffb3d1" opacity="0.38"/>
-
-  <!-- 그린 별들 -->
   <polygon points="760,30 765,45 780,45 769,54 773,69 760,60 747,69 751,54 740,45 755,45" fill="#a8e6cf" opacity="0.45"/>
   <polygon points="60,320 63,330 73,330 65,336 68,346 60,340 52,346 55,336 47,330 57,330" fill="#74c69d" opacity="0.4"/>
   <polygon points="1400,400 1403,410 1413,410 1405,416 1408,426 1400,420 1392,426 1395,416 1387,410 1397,410" fill="#a8e6cf" opacity="0.42"/>
   <polygon points="300,820 304,834 318,834 307,843 311,857 300,848 289,857 293,843 282,834 296,834" fill="#74c69d" opacity="0.38"/>
-  <polygon points="1100,780 1104,794 1118,794 1107,803 1111,817 1100,808 1089,817 1093,803 1082,794 1096,794" fill="#a8e6cf" opacity="0.4"/>
-
-  <!-- 하늘 동그라미 -->
   <circle cx="1200" cy="120" r="28" fill="#b8e0ff" opacity="0.35"/>
-  <circle cx="80"   cy="580" r="20" fill="#c5eeff" opacity="0.32"/>
+  <circle cx="80" cy="580" r="20" fill="#c5eeff" opacity="0.32"/>
   <circle cx="1350" cy="820" r="16" fill="#b8e0ff" opacity="0.3"/>
-  <circle cx="400"  cy="60"  r="12" fill="#c5eeff" opacity="0.28"/>
-
-  <!-- 작은 핑크 원 -->
-  <circle cx="650"  cy="850" r="10" fill="#ffd3e8" opacity="0.4"/>
-  <circle cx="900"  cy="40"  r="8"  fill="#ffb3d1" opacity="0.38"/>
-  <circle cx="50"   cy="200" r="7"  fill="#ffd3e8" opacity="0.35"/>
+  <circle cx="400" cy="60" r="12" fill="#c5eeff" opacity="0.28"/>
+  <circle cx="650" cy="850" r="10" fill="#ffd3e8" opacity="0.4"/>
+  <circle cx="900" cy="40" r="8" fill="#ffb3d1" opacity="0.38"/>
 </svg>
 
-<!-- 떠다니는 장식 -->
 <div class="float-deco"><svg width="28" height="28" viewBox="0 0 28 28"><path d="M14,4 C14,4 6,10 6,16 C6,20.4 9.6,24 14,24 C18.4,24 22,20.4 22,16 C22,10 14,4 14,4Z" fill="#ffd3e8"/></svg></div>
 <div class="float-deco"><svg width="26" height="26" viewBox="0 0 26 26"><polygon points="13,2 15.5,9.5 23,9.5 17,14.5 19.5,22 13,17 6.5,22 9,14.5 3,9.5 10.5,9.5" fill="#a8e6cf"/></svg></div>
 <div class="float-deco"><svg width="22" height="22" viewBox="0 0 22 22"><path d="M11,3 C11,3 5,8 5,13 C5,16.9 7.7,20 11,20 C14.3,20 17,16.9 17,13 C17,8 11,3 11,3Z" fill="#ffb3d1"/></svg></div>
@@ -333,7 +199,7 @@
 
 <!-- 위츄 -->
 <img class="wishu-deco"
-  src="src="https://raw.githubusercontent.com/YushiOrbit/edu-archive/main/withu_2D.png""
+  src="https://raw.githubusercontent.com/GITHUB_USER/edu-archive/main/withu_2D.png"
   alt="wishu" />
 
 <!-- 로그인 화면 -->
@@ -360,12 +226,9 @@
 <!-- 메인 화면 -->
 <div id="main-section">
   <div class="page-header">
-    <div>
-      <h1>⭐ 강의자료실</h1>
-      <p>PDF 및 PPTX 자료를 업로드하고 관리하세요</p>
-    </div>
+    <h1>⭐ 강의자료실</h1>
+    <p>PDF 및 PPTX 자료를 업로드하고 관리하세요</p>
   </div>
-
   <div class="upload-box">
     <input type="file" id="file-input" accept=".pdf,.pptx,.ppt" onchange="showFileName()" />
     <label for="file-input">📁 파일 선택</label>
@@ -373,14 +236,12 @@
     <button class="upload-btn" onclick="uploadFile()">⬆ 업로드</button>
     <p id="upload-status"></p>
   </div>
-
   <div class="section-title">✦ 업로드된 자료</div>
   <div id="file-list">
     <p class="empty-state">아직 업로드된 파일이 없어요 🌿</p>
   </div>
 </div>
 
-<!-- 푸터 -->
 <footer>
   <p>Created by <span>Seoyi · YushiOrbit</span></p>
   <p>for <span>Hanjasan Holdings</span></p>
@@ -388,9 +249,13 @@
 
 <script>
   const PASSWORD = "0221";
-  const GITHUB_TOKEN = "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";
   const GITHUB_USER = "YushiOrbit";
   const REPO_NAME = "edu-archive";
+  const TOKEN = "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";
+
+  // 위츄 이미지 URL도 업데이트
+  document.querySelector('.wishu-deco').src =
+    `https://raw.githubusercontent.com/${GITHUB_USER}/edu-archive/main/withu_2D.png`;
 
   function checkPassword() {
     if (document.getElementById("pw").value === PASSWORD) {
@@ -419,6 +284,7 @@
 
     status.style.color = "#74c69d";
     status.textContent = "업로드 중... ✨";
+
     const reader = new FileReader();
     reader.onload = async function(e) {
       const base64 = e.target.result.split(",")[1];
@@ -426,7 +292,7 @@
       const res = await fetch(url, {
         method: "PUT",
         headers: {
-          "Authorization": `token ${GITHUB_TOKEN}`,
+          "Authorization": `token ${TOKEN}`,
           "Content-Type": "application/json"
         },
         body: JSON.stringify({ message: `Upload ${file.name}`, content: base64 })
@@ -437,8 +303,9 @@
         status.textContent = "✅ 업로드 완료!";
         loadFiles();
       } else {
+        const err = await res.json();
         status.style.color = "#e07070";
-        status.textContent = "❌ 업로드 실패. 토큰과 저장소 이름을 확인해줘.";
+        status.textContent = `❌ 실패: ${err.message}`;
       }
     };
     reader.readAsDataURL(file);
@@ -447,7 +314,7 @@
   async function loadFiles() {
     const url = `https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/materials`;
     const res = await fetch(url, {
-      headers: { "Authorization": `token ${GITHUB_TOKEN}` }
+      headers: { "Authorization": `token ${TOKEN}` }
     });
     const list = document.getElementById("file-list");
 
@@ -464,6 +331,7 @@
 
     list.innerHTML = "";
     files.forEach(file => {
+      if (file.name === ".gitkeep") return;
       const isPdf = file.name.endsWith(".pdf");
       const icon = isPdf ? "📄" : "📊";
       const iconClass = isPdf ? "pdf" : "ppt";
