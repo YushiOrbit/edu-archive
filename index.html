@@ -203,7 +203,7 @@
   <div class="login-box">
     <span class="login-emoji">🌿</span>
     <h2>강의자료실</h2>
-    <p class="login-sub">✦ Lecture Library ✦</p>
+    <p class="login-sub">✦ Lecture Archive ✦</p>
     <div class="input-wrap">
       <span>🔑</span>
       <input type="password" id="pw" placeholder="Password" />
@@ -349,13 +349,16 @@
       const icon = isPdf ? "📄" : "📊";
       const iconClass = isPdf ? "pdf" : "ppt";
       list.innerHTML += `
-        <div class="file-item">
-          <div class="file-info">
-            <div class="file-icon ${iconClass}">${icon}</div>
-            <span class="file-name">${file.name}</span>
-          </div>
-          <button class="download-btn" onclick="downloadFile('${file.name}', '${file.sha}')">↓ Download</button>
-        </div>`;
+         <div class="file-item">
+    <div class="file-info">
+      <div class="file-icon ${iconClass}">${icon}</div>
+      <span class="file-name">${file.name}</span>
+    </div>
+    <div style="display:flex; gap:8px;">
+      <button class="download-btn" onclick="downloadFile('${file.name}', '${file.sha}')">↓ Download</button>
+      <button class="download-btn" style="background:#ffe8ee; color:#e07070;" onclick="deleteFile('${file.name}', '${file.sha}')">🗑️ 삭제</button>
+    </div>
+  </div>`;
     });
   }
 
@@ -369,6 +372,24 @@
     link.href = "data:application/octet-stream;base64," + data.content.replace(/\n/g, "");
     link.download = fileName;
     link.click();
+    async function deleteFile(fileName, sha) {
+  if (!confirm(`"${fileName}" 을 삭제할까요?`)) return;
+  const url = `https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/materials/${fileName}`;
+  const res = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Authorization": `token ${TOKEN}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ message: `Delete ${fileName}`, sha: sha })
+  });
+  if (res.ok) {
+    alert("✅ 삭제 완료!");
+    loadFiles();
+  } else {
+    alert("❌ 삭제 실패!");
+  }
+}
   }
 </script>
 </body>
