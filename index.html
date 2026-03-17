@@ -203,7 +203,7 @@
   <div class="login-box">
     <span class="login-emoji">🌿</span>
     <h2>강의자료실</h2>
-    <p class="login-sub">✦ Lecture Archive ✦</p>
+    <p class="login-sub">✦ Lecture Library ✦</p>
     <div class="input-wrap">
       <span>🔑</span>
       <input type="password" id="pw" placeholder="Password" />
@@ -372,7 +372,7 @@
     link.href = "data:application/octet-stream;base64," + data.content.replace(/\n/g, "");
     link.download = fileName;
     link.click();
-  }
+}
     async function deleteFile(fileName, sha) {
   if (!confirm(`"${fileName}" 을 삭제할까요?`)) return;
   const url = `https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/materials/${fileName}`;
