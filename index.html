@@ -372,6 +372,7 @@
     link.href = "data:application/octet-stream;base64," + data.content.replace(/\n/g, "");
     link.download = fileName;
     link.click();
+  }
     async function deleteFile(fileName, sha) {
   if (!confirm(`"${fileName}" 을 삭제할까요?`)) return;
   const url = `https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/materials/${fileName}`;
