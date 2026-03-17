@@ -5,12 +5,52 @@
   <title>강의자료실</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: 'Malgun Gothic', sans-serif;
-      background: #0a1628;
+      background: #f0faf0;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* 떠다니는 별 장식 */
+    .deco-star {
+      position: fixed;
+      font-size: 18px;
+      opacity: 0.25;
+      animation: float 6s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .deco-star:nth-child(1)  { top: 8%;  left: 5%;  animation-delay: 0s;   font-size: 22px; }
+    .deco-star:nth-child(2)  { top: 15%; left: 88%; animation-delay: 1s;   font-size: 14px; }
+    .deco-star:nth-child(3)  { top: 30%; left: 3%;  animation-delay: 2s;   font-size: 18px; }
+    .deco-star:nth-child(4)  { top: 45%; left: 92%; animation-delay: 0.5s; font-size: 20px; }
+    .deco-star:nth-child(5)  { top: 60%; left: 6%;  animation-delay: 1.5s; font-size: 12px; }
+    .deco-star:nth-child(6)  { top: 75%; left: 90%; animation-delay: 2.5s; font-size: 16px; }
+    .deco-star:nth-child(7)  { top: 85%; left: 12%; animation-delay: 3s;   font-size: 20px; }
+    .deco-star:nth-child(8)  { top: 22%; left: 45%; animation-delay: 3.5s; font-size: 10px; opacity: 0.15; }
+    .deco-star:nth-child(9)  { top: 55%; left: 50%; animation-delay: 4s;   font-size: 10px; opacity: 0.15; }
+    .deco-star:nth-child(10) { top: 90%; left: 55%; animation-delay: 4.5s; font-size: 14px; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-12px) rotate(10deg); }
+    }
+
+    /* 위츄 고정 이미지 */
+    .wishu-deco {
+      position: fixed;
+      bottom: 80px;
+      right: 24px;
+      width: 90px;
+      opacity: 0.85;
+      z-index: 10;
+      animation: float 5s ease-in-out infinite;
+      pointer-events: none;
     }
 
     /* 로그인 화면 */
@@ -18,45 +58,51 @@
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       flex: 1; padding: 20px;
+      position: relative; z-index: 1;
     }
     .login-box {
-      background: #112240;
-      border: 1px solid #1e3a5f;
-      border-radius: 16px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
+      border: 1.5px solid #b8f0c8;
+      border-radius: 20px;
       padding: 48px 40px;
       text-align: center;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      width: 100%; max-width: 400px;
+      box-shadow: 0 8px 32px rgba(100,200,120,0.15);
+    }
+    .login-logo {
+      font-size: 36px; margin-bottom: 6px;
     }
     .login-box h2 {
-      font-size: 22px; color: #e2e8f0;
-      margin-bottom: 8px; font-weight: 700;
+      font-size: 20px; color: #2d6a4f;
+      margin-bottom: 6px; font-weight: 800;
     }
     .login-box p {
-      font-size: 13px; color: #64748b;
-      margin-bottom: 28px;
+      font-size: 12px; color: #95b8a0; margin-bottom: 24px;
     }
     .login-box input {
       width: 100%; padding: 13px 16px;
-      background: #0a1628;
-      border: 1px solid #1e3a5f;
-      border-radius: 8px;
-      color: #e2e8f0; font-size: 14px;
+      background: #f0faf0;
+      border: 1.5px solid #b8f0c8;
+      border-radius: 12px;
+      color: #2d6a4f; font-size: 14px;
       margin-bottom: 12px; outline: none;
+      text-align: center;
     }
-    .login-box input:focus { border-color: #3b82f6; }
+    .login-box input:focus { border-color: #52b788; }
+    .login-box input::placeholder { color: #b8dfc8; }
     .login-box button {
       width: 100%; padding: 13px;
-      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      background: linear-gradient(135deg, #52b788, #74c69d);
       color: white; border: none;
-      border-radius: 8px; font-size: 14px;
-      font-weight: 600; cursor: pointer;
+      border-radius: 12px; font-size: 14px;
+      font-weight: 700; cursor: pointer;
       transition: opacity 0.2s;
+      letter-spacing: 0.5px;
     }
-    .login-box button:hover { opacity: 0.9; }
+    .login-box button:hover { opacity: 0.88; }
     #error {
-      color: #f87171; font-size: 12px;
+      color: #e07070; font-size: 12px;
       margin-top: 10px; display: none;
     }
 
@@ -65,119 +111,142 @@
       display: none; flex: 1;
       max-width: 860px; width: 100%;
       margin: 0 auto; padding: 40px 20px 20px;
+      position: relative; z-index: 1;
     }
     .page-header {
-      margin-bottom: 32px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid #1e3a5f;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+      border-bottom: 1.5px solid #b8f0c8;
+      display: flex; align-items: center; gap: 10px;
     }
     .page-header h1 {
-      font-size: 24px; color: #e2e8f0;
-      font-weight: 700; margin-bottom: 4px;
+      font-size: 22px; color: #2d6a4f;
+      font-weight: 800;
     }
     .page-header p {
-      font-size: 13px; color: #64748b;
+      font-size: 12px; color: #95b8a0; margin-top: 3px;
     }
 
     /* 업로드 박스 */
     .upload-box {
-      background: #112240;
-      border: 2px dashed #1e3a5f;
-      border-radius: 12px;
-      padding: 32px; text-align: center;
-      margin-bottom: 32px;
+      background: rgba(255,255,255,0.8);
+      border: 2px dashed #74c69d;
+      border-radius: 16px;
+      padding: 28px; text-align: center;
+      margin-bottom: 28px;
       transition: border-color 0.2s;
     }
-    .upload-box:hover { border-color: #3b82f6; }
+    .upload-box:hover { border-color: #52b788; }
     .upload-box input[type="file"] { display: none; }
     .upload-box label {
       display: inline-block;
-      padding: 10px 22px;
-      background: #1e3a5f;
-      color: #93c5fd;
-      border-radius: 8px; cursor: pointer;
-      font-size: 13px; font-weight: 600;
-      margin-bottom: 14px;
+      padding: 9px 22px;
+      background: #d8f3dc;
+      color: #2d6a4f;
+      border-radius: 10px; cursor: pointer;
+      font-size: 13px; font-weight: 700;
+      margin-bottom: 12px;
       transition: background 0.2s;
     }
-    .upload-box label:hover { background: #1d4ed8; color: white; }
+    .upload-box label:hover { background: #b7e4c7; }
     #selected-file {
-      font-size: 12px; color: #64748b; margin-bottom: 12px;
+      font-size: 12px; color: #95b8a0; margin-bottom: 10px;
     }
     .upload-btn {
-      display: inline-block; padding: 10px 28px;
-      background: linear-gradient(135deg, #1d4ed8, #2563eb);
-      color: white; border: none; border-radius: 8px;
-      font-size: 13px; font-weight: 600;
+      display: inline-block; padding: 9px 28px;
+      background: linear-gradient(135deg, #52b788, #74c69d);
+      color: white; border: none; border-radius: 10px;
+      font-size: 13px; font-weight: 700;
       cursor: pointer; transition: opacity 0.2s;
     }
-    .upload-btn:hover { opacity: 0.9; }
-    #upload-status { margin-top: 12px; font-size: 13px; }
+    .upload-btn:hover { opacity: 0.88; }
+    #upload-status { margin-top: 10px; font-size: 13px; }
 
     /* 파일 목록 */
     .section-title {
-      font-size: 13px; font-weight: 700;
-      color: #64748b; letter-spacing: 1.5px;
-      text-transform: uppercase; margin-bottom: 14px;
+      font-size: 11px; font-weight: 800;
+      color: #95b8a0; letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 6px;
     }
     .file-item {
-      background: #112240;
-      border: 1px solid #1e3a5f;
-      border-radius: 10px;
-      padding: 16px 20px; margin-bottom: 10px;
+      background: rgba(255,255,255,0.85);
+      border: 1.5px solid #d8f3dc;
+      border-radius: 14px;
+      padding: 14px 20px; margin-bottom: 10px;
       display: flex; justify-content: space-between;
       align-items: center;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, transform 0.15s;
     }
-    .file-item:hover { border-color: #3b82f6; }
+    .file-item:hover {
+      border-color: #74c69d;
+      transform: translateY(-1px);
+    }
     .file-info { display: flex; align-items: center; gap: 12px; }
     .file-icon {
       width: 36px; height: 36px;
-      border-radius: 8px;
+      border-radius: 10px;
       display: flex; align-items: center;
       justify-content: center; font-size: 16px;
-      background: #1e3a5f; flex-shrink: 0;
+      background: #d8f3dc; flex-shrink: 0;
     }
     .file-name {
-      font-size: 14px; color: #e2e8f0; font-weight: 500;
+      font-size: 13px; color: #2d6a4f; font-weight: 600;
     }
     .download-btn {
-      background: #1e3a5f; color: #93c5fd;
-      padding: 7px 16px; border-radius: 6px;
+      background: #d8f3dc; color: #2d6a4f;
+      padding: 7px 16px; border-radius: 8px;
       text-decoration: none; font-size: 12px;
-      font-weight: 600; white-space: nowrap;
+      font-weight: 700; white-space: nowrap;
       transition: background 0.2s;
     }
-    .download-btn:hover { background: #1d4ed8; color: white; }
-    #loading { text-align: center; color: #64748b; padding: 40px; }
+    .download-btn:hover { background: #b7e4c7; }
     .empty-state {
-      text-align: center; color: #64748b;
+      text-align: center; color: #95b8a0;
       padding: 40px; font-size: 14px;
     }
 
     /* 푸터 */
     footer {
       text-align: center;
-      padding: 24px 20px;
-      border-top: 1px solid #1e3a5f;
+      padding: 24px 20px 40px;
+      border-top: 1.5px solid #d8f3dc;
       margin-top: 40px;
+      position: relative; z-index: 1;
     }
     footer p {
-      font-size: 12px; color: #334155;
-      line-height: 1.8;
+      font-size: 12px; color: #b8dfc8; line-height: 1.8;
     }
-    footer span { color: #3b82f6; }
+    footer span { color: #52b788; font-weight: 700; }
   </style>
 </head>
 <body>
 
+<!-- 떠다니는 별 장식 -->
+<div class="deco-star">🌟</div>
+<div class="deco-star">⭐</div>
+<div class="deco-star">✨</div>
+<div class="deco-star">🌟</div>
+<div class="deco-star">💚</div>
+<div class="deco-star">⭐</div>
+<div class="deco-star">✨</div>
+<div class="deco-star">🌟</div>
+<div class="deco-star">💫</div>
+<div class="deco-star">⭐</div>
+
+<!-- 위츄 고정 이미지 -->
+<img class="wishu-deco"
+  src="https://raw.githubusercontent.com/parkalldo@gmail.com/lecture-materials/main/위츄2D.png"
+  alt="wishu" />
+
 <!-- 로그인 화면 -->
 <div id="login-section">
   <div class="login-box">
-    <h2>🔐 강의자료실</h2>
-    <p>비밀번호를 입력하세요</p>
-    <input type="password" id="pw" placeholder="Password" />
-    <button onclick="checkPassword()">Enter</button>
+    <div class="login-logo">🌿⭐</div>
+    <h2>강의자료실</h2>
+    <p>Enter password to continue</p>
+    <input type="password" id="pw" placeholder="✦ password ✦" />
+    <button onclick="checkPassword()">Enter ✦</button>
     <p id="error">비밀번호가 틀렸습니다</p>
   </div>
 </div>
@@ -185,23 +254,23 @@
 <!-- 메인 화면 -->
 <div id="main-section">
   <div class="page-header">
-    <h1>📚 강의자료실</h1>
-    <p>PDF 및 PPTX 자료를 업로드하고 관리하세요</p>
+    <div>
+      <h1>⭐ 강의자료실</h1>
+      <p>PDF 및 PPTX 자료를 업로드하고 관리하세요</p>
+    </div>
   </div>
 
-  <!-- 업로드 박스 -->
   <div class="upload-box">
     <input type="file" id="file-input" accept=".pdf,.pptx,.ppt" onchange="showFileName()" />
     <label for="file-input">📁 파일 선택 (PDF / PPTX)</label>
     <p id="selected-file">선택된 파일 없음</p>
-    <button class="upload-btn" onclick="uploadFile()">⬆️ 업로드</button>
+    <button class="upload-btn" onclick="uploadFile()">✦ 업로드</button>
     <p id="upload-status"></p>
   </div>
 
-  <!-- 파일 목록 -->
-  <div class="section-title">업로드된 자료</div>
+  <div class="section-title">✦ 업로드된 자료</div>
   <div id="file-list">
-    <p id="loading">파일 목록 불러오는 중...</p>
+    <p class="empty-state">아직 업로드된 파일이 없어요 🌿</p>
   </div>
 </div>
 
@@ -212,11 +281,10 @@
 </footer>
 
 <script>
-  // ⚙️ 본인 정보 입력
-  const PASSWORD = "0921";
-  const GITHUB_TOKEN = "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";
+  const PASSWORD = "0221";
+  const GITHUB_TOKEN = "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";
   const GITHUB_USER = "parkalldo@gmail.com";
-  const REPO_NAME = "edu-archive";
+  const REPO_NAME = "edu_archive";
 
   function checkPassword() {
     if (document.getElementById("pw").value === PASSWORD) {
@@ -243,8 +311,8 @@
     const status = document.getElementById("upload-status");
     if (!file) { status.textContent = "⚠️ 파일을 먼저 선택해주세요."; return; }
 
-    status.style.color = "#93c5fd";
-    status.textContent = "업로드 중...";
+    status.style.color = "#74c69d";
+    status.textContent = "업로드 중... ✨";
     const reader = new FileReader();
     reader.onload = async function(e) {
       const base64 = e.target.result.split(",")[1];
@@ -259,11 +327,11 @@
       });
 
       if (res.ok) {
-        status.style.color = "#4ade80";
+        status.style.color = "#52b788";
         status.textContent = "✅ 업로드 완료!";
         loadFiles();
       } else {
-        status.style.color = "#f87171";
+        status.style.color = "#e07070";
         status.textContent = "❌ 업로드 실패. 토큰과 저장소 이름을 확인해줘.";
       }
     };
@@ -278,13 +346,13 @@
     const list = document.getElementById("file-list");
 
     if (!res.ok) {
-      list.innerHTML = "<p class='empty-state'>아직 업로드된 파일이 없어요 📂</p>";
+      list.innerHTML = "<p class='empty-state'>아직 업로드된 파일이 없어요 🌿</p>";
       return;
     }
 
     const files = await res.json();
     if (files.length === 0) {
-      list.innerHTML = "<p class='empty-state'>아직 업로드된 파일이 없어요 📂</p>";
+      list.innerHTML = "<p class='empty-state'>아직 업로드된 파일이 없어요 🌿</p>";
       return;
     }
 
@@ -297,7 +365,7 @@
             <div class="file-icon">${icon}</div>
             <span class="file-name">${file.name}</span>
           </div>
-          <a class="download-btn" href="${file.download_url}" download>Download</a>
+          <a class="download-btn" href="${file.download_url}" download>Download ✦</a>
         </div>`;
     });
   }
