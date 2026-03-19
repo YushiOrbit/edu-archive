@@ -362,17 +362,25 @@
     });
   }
 
-  async function downloadFile(fileName, sha) {
-    const url = `https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/materials/${fileName}`;
-    const res = await fetch(url, {
-      headers: { "Authorization": `token ${TOKEN}` }
-    });
-    const data = await res.json();
-    const link = document.createElement("a");
-    link.href = "data:application/octet-stream;base64," + data.content.replace(/\n/g, "");
-    link.download = fileName;
-    link.click();
+  async function downloadFile(fileName) {
+  const url = `https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/materials/${encodeURIComponent(fileName)}`;
+  const res = await fetch(url, {
+    headers: { "Authorization": `token ${TOKEN}` }
+  });
+  const data = await res.json();
+  const binary = atob(data.content.replace(/\n/g, ""));
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  const blob = new Blob([bytes]);
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = fileName;
+  link.click();
+  URL.revokeObjectURL(link.href);
 }
+
     async function deleteFile(fileName, sha) {
   if (!confirm(`"${fileName}" 을 삭제할까요?`)) return;
   const url = `https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/materials/${fileName}`;
